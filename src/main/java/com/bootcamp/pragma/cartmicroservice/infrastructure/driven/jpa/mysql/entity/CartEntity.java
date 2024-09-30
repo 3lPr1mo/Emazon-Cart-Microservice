@@ -30,23 +30,23 @@ public class CartEntity {
     private Status status = Status.ACTIVE;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Column(name = "update_at", nullable = false)
-    private LocalDateTime update_at;
+    private LocalDateTime updateAt;
 
     @OneToMany(mappedBy = "cartEntity")
     private List<CartArticleEntity> cartArticles;
 
     @PrePersist
     protected void onCreate() {
-        created_at = LocalDateTime.now();
-        update_at = LocalDateTime.now();
+        createdAt = LocalDateTime.now();
+        updateAt = LocalDateTime.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        update_at = LocalDateTime.now();
+        updateAt = LocalDateTime.now();
     }
 
 }
