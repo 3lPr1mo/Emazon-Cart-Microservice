@@ -31,6 +31,7 @@ public class CartArticleUseCase implements ICartArticleServicePort {
         if(!isCategoriesMaxThanThreeOnCart(cartArticle.getArticleId())){
             throw new ExcessiveCategoriesException(ExceptionConstants.MAX_CATEGORIES_MSG);
         }
+        cartServicePort.saveCart(cartArticle.getCart());
         cartArticlePersistencePort.saveCartArticle(cartArticle);
         return Optional.of(DomainConstants.ARTICLE_WAS_SAVED_TO_CART_SUCCESSFULLY);
     }
@@ -41,6 +42,6 @@ public class CartArticleUseCase implements ICartArticleServicePort {
 
     private boolean isCategoriesMaxThanThreeOnCart(Long articleId){
         Integer numCategories = cartArticlePersistencePort.findCategoriesNumOnCartById(articleId);
-        return numCategories > 3;
+        return numCategories > DomainConstants.NUM_MAX_OF_CATEGORIES_ON_CART;
     }
 }
